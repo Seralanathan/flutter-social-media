@@ -92,6 +92,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../widgets/exit_dialog.dart';
 import 'auth_provider.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -238,7 +239,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (!didPop) confirmExit(context);
+        },child: Scaffold(
       backgroundColor: background,
       body: Container(
         decoration: const BoxDecoration(
@@ -336,7 +341,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
                       TextFormField(
                         controller: _mobile,
-                        keyboardType: TextInputType.phone,
                         maxLength: 10,
                         decoration: _inputDecoration(
                           label: 'Mobile number',
@@ -468,6 +472,7 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
       ),
+    )
     );
   }
 }

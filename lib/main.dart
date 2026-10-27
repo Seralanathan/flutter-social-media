@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/profile.dart';
+import 'package:social_media/widgets/exit_dialog.dart';
 import 'package:social_media/widgets/nav_bar.dart';
 import 'auth/auth_provider.dart';
 import 'auth/auth_screen.dart';
@@ -79,30 +80,41 @@ class _MainShellState extends State<MainShell> {
       providers: [
         ChangeNotifierProvider(create: (_) => ReelsProvider(user.mobile)..load()),
         ChangeNotifierProvider(create: (_) => DynamicFormProvider()..loadFromAsset('assets/form/employee_form.json')),      ],
-      child: Scaffold(
-        extendBody: true,
-        body: IndexedStack(index: _index, children: [
-          const HomeScreen(),
-          ReelsScreen(tabActive: _index == 1),
-          const DynamicFormScreen(),
-          const ProfileScreen(),
-          // Center(
-          //   child: Column(mainAxisSize: MainAxisSize.min, children: [
-          //     Text('${user.name}\n${user.mobile}', textAlign: TextAlign.center),
-          //     const SizedBox(height: 12),
-          //     FilledButton(onPressed: () => context.read<AuthProvider>().logout(), child: const Text('Logout')),
-          //   ]),
-          // ),
-        ]),
-        bottomNavigationBar: FancyNavBar(
-          selectedIndex: _index,
-          onTap: (i) => setState(() => _index = i),
-          items: const [
-            NavItem(Icons.home_outlined, Icons.home_rounded, 'Home'),
-            NavItem(Icons.play_circle_outline, Icons.play_circle_rounded, 'Reels'),
-            NavItem(Icons.dynamic_form_outlined, Icons.dynamic_form, 'Form'),
-            NavItem(Icons.person_outline, Icons.person_rounded, 'Profile'),
-          ],
+      child: PopScope(
+        canPop: false, // we decide what back does
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) return;
+          if (_index != 0) {
+            setState(() => _index = 0);
+          } else {
+            confirmExit(context);
+          }
+        },
+        child: Scaffold(
+          extendBody: true,
+          body: IndexedStack(index: _index, children: [
+            const HomeScreen(),
+            ReelsScreen(tabActive: _index == 1),
+            const DynamicFormScreen(),
+            const ProfileScreen(),
+            // Center(
+            //   child: Column(mainAxisSize: MainAxisSize.min, children: [
+            //     Text('${user.name}\n${user.mobile}', textAlign: TextAlign.center),
+            //     const SizedBox(height: 12),
+            //     FilledButton(onPressed: () => context.read<AuthProvider>().logout(), child: const Text('Logout')),
+            //   ]),
+            // ),
+          ]),
+          bottomNavigationBar: FancyNavBar(
+            selectedIndex: _index,
+            onTap: (i) => setState(() => _index = i),
+            items: const [
+              NavItem(Icons.home_outlined, Icons.home_rounded, 'Home'),
+              NavItem(Icons.play_circle_outline, Icons.play_circle_rounded, 'Reels'),
+              NavItem(Icons.dynamic_form_outlined, Icons.dynamic_form, 'Form'),
+              NavItem(Icons.person_outline, Icons.person_rounded, 'Profile'),
+            ],
+          ),
         ),
       ),
     );
