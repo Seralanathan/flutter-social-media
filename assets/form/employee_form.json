@@ -1,0 +1,149 @@
+{
+  "title": "Employee Registration Form",
+  "submitButton": "Submit",
+  "fields": [
+    {
+      "id": "full_name",
+      "type": "text",
+      "label": "Full Name",
+      "placeholder": "Enter your full name",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 50
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "label": "Email Address",
+      "placeholder": "Enter your email",
+      "required": true
+    },
+    {
+      "id": "mobile",
+      "type": "phone",
+      "label": "Mobile Number",
+      "placeholder": "Enter mobile number",
+      "required": true,
+      "maxLength": 10
+    },
+    {
+      "id": "password",
+      "type": "password",
+      "label": "Password",
+      "required": true,
+      "minLength": 8
+    },
+    {
+      "id": "age",
+      "type": "number",
+      "label": "Age",
+      "required": true,
+      "min": 18,
+      "max": 60
+    },
+    {
+      "id": "dob",
+      "type": "date",
+      "label": "Date of Birth",
+      "required": true
+    },
+    {
+      "id": "gender",
+      "type": "radio",
+      "label": "Gender",
+      "required": true,
+      "options": ["Male", "Female", "Other"]
+    },
+    {
+      "id": "department",
+      "type": "dropdown",
+      "label": "Department",
+      "required": true,
+      "options": ["Engineering", "HR", "Finance", "Sales", "Support"]
+    },
+    {
+      "id": "skills",
+      "type": "checkbox",
+      "label": "Skills",
+      "required": true,
+      "options": ["Flutter", "Android", "iOS", "Firebase", "Node.js"]
+    },
+    {
+      "id": "experience",
+      "type": "slider",
+      "label": "Years of Experience",
+      "min": 0,
+      "max": 15,
+      "divisions": 15,
+      "required": true
+    },
+    {
+      "id": "joining_time",
+      "type": "time",
+      "label": "Preferred Joining Time",
+      "required": false
+    },
+    {
+      "id": "resume",
+      "type": "file",
+      "label": "Upload Resume",
+      "required": false,
+      "allowedExtensions": ["pdf", "doc", "docx"]
+    },
+    {
+      "id": "profile_picture",
+      "type": "image",
+      "label": "Profile Picture",
+      "required": false
+    },
+    {
+      "id": "address",
+      "type": "textarea",
+      "label": "Address",
+      "placeholder": "Enter your address",
+      "required": false,
+      "maxLength": 250
+    },
+    {
+      "id": "is_married",
+      "type": "switch",
+      "label": "Married",
+      "required": false
+    },
+    {
+      "id": "spouse_name",
+      "type": "text",
+      "label": "Spouse Name",
+      "required": true,
+      "visibleIf": {
+        "field": "is_married",
+        "equals": true
+      }
+    },
+    {
+      "id": "country",
+      "type": "dropdown",
+      "label": "Country",
+      "required": true,
+      "options": ["India", "USA", "Canada"]
+    },
+    {
+      "id": "state",
+      "type": "dropdown",
+      "label": "State",
+      "required": true,
+      "dependsOn": "country",
+      "optionsMap": {
+        "India": ["Tamil Nadu", "Kerala", "Karnataka"],
+        "USA": ["Texas", "California", "Florida"],
+        "Canada": ["Ontario", "Quebec"]
+      }
+    },
+    {
+      "id": "accept_terms",
+      "type": "checkbox_single",
+      "label": "I accept the Terms & Conditions",
+      "required": true
+    }
+  ]
+}
